@@ -1,19 +1,34 @@
 {
-    "tasks": [
-        {
-            "id": 1,
-            "text": "Task 1",
-            "completed": false
-        },
-        {
-            "id": 2,
-            "text": "Task 2",
-            "completed": true
-        },
-        {
-            "id": 3,
-            "text": "Task 3",
-            "completed": false
-        }
-    ]
+  "tasks": [
+    { "id": 1, "text": "Buy groceries", "completed": false },
+    { "id": 2, "text": "Walk the dog", "completed": true },
+    { "id": 3, "text": "Read a book", "completed": false },
+    { "id": 4, "text": "Write blog post", "completed": true },
+    { "id": 5, "text": "Clean kitchen", "completed": false },
+    { "id": 6, "text": "Pay bills", "completed": true },
+    { "id": 7, "text": "Finish homework", "completed": false },
+    { "id": 8, "text": "Call mom", "completed": true },
+    { "id": 9, "text": "Check email", "completed": false },
+    { "id": 10, "text": "Go for a run", "completed": true },
+    { "id": 11, "text": "Prepare dinner", "completed": false },
+    { "id": 12, "text": "Fix the sink", "completed": true },
+    { "id": 13, "text": "Study TypeScript", "completed": false },
+    { "id": 14, "text": "Reply to messages", "completed": true },
+    { "id": 15, "text": "Organize files", "completed": false },
+    { "id": 16, "text": "Do laundry", "completed": false },
+    { "id": 17, "text": "Practice guitar", "completed": true },
+    { "id": 18, "text": "Water plants", "completed": false },
+    { "id": 19, "text": "Watch tutorial", "completed": true },
+    { "id": 20, "text": "Journal entry", "completed": false },
+    { "id": 21, "text": "Update resume", "completed": true },
+    { "id": 22, "text": "Book dentist", "completed": false },
+    { "id": 23, "text": "Sort bookshelf", "completed": true },
+    { "id": 24, "text": "Learn React Query", "completed": false },
+    { "id": 25, "text": "Attend meeting", "completed": true },
+    { "id": 26, "text": "Backup data", "completed": false },
+    { "id": 27, "text": "Stretch", "completed": true },
+    { "id": 28, "text": "Declutter desk", "completed": false },
+    { "id": 29, "text": "Write test cases", "completed": true },
+    { "id": 30, "text": "Plan trip", "completed": false }
+  ]
 }
