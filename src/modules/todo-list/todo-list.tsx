@@ -22,9 +22,7 @@ export function TodoList() {
     queryKey: ["tasks", "list"],
     queryFn: ({ pageParam = 1, signal }) =>
       todoListApi.getToDoList({ page: pageParam }, { signal }),
-    getNextPageParam: (lastPage) => {
-      return lastPage.next ?? undefined;
-    },
+    getNextPageParam: (result) => result.next,
     enabled,
     initialPageParam: 1,
   });
@@ -39,6 +37,8 @@ export function TodoList() {
   if (error instanceof Error)
     return <div>Error loading tasks: {error.message}</div>;
 
+  const allTodos = data?.pages.flatMap((page) => page.data) ?? [];
+
   return (
     <div className="p-5 mx-auto max-w-[1200px]">
       <h1 className="text-3xl font-bold underline mb-5">Todo List</h1>
@@ -47,39 +47,37 @@ export function TodoList() {
       </button>
 
       <div className={"flex flex-col gap-4 " + (isFetchingNextPage ? "opacity-50" : "")}>
-        {data?.pages.map((page, pageIndex) =>
-          page.data.map((todo) => (
-            <div key={`${pageIndex}-${todo.id}`} className="border border-slate-300 rounded p-3 mb-1">
-              {todo.text}
-            </div>
-          ))
-        )}
+        {allTodos.map((todo) => (
+          <div key={todo.id} className="border border-slate-300 rounded p-3 mb-1">
+            {todo.text}
+          </div>
+        ))}
       </div>
 
-      <div ref={cursorRef} className="h-10" />
+      <div ref={cursorRef} className="h-10 mt-4">
+        {isFetchingNextPage && <div>Loading more...</div>}
+        {!hasNextPage && <div>No more tasks to load</div>}
+      </div>
     </div>
   );
 }
 
-
 export function useIntersection(onIntersect: () => void) {
-
-  const unsubscribe = useRef(() => {});
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   return useCallback((el: HTMLDivElement | null) => {
-  const observer = new IntersectionObserver((entries) => {
-      entries.forEach(intersection => {
-        if (intersection.isIntersecting) {
-          onIntersect();
-        }
-      })
-    })
+    if (observerRef.current) observerRef.current.disconnect();
 
     if (el) {
-      observer.observe(el);
-      unsubscribe.current = observer.disconnect()
-    } else {
-      unsubscribe.current();
+      observerRef.current = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            onIntersect();
+          }
+        });
+      });
+
+      observerRef.current.observe(el);
     }
-  }, [])
+  }, [onIntersect]);
 }
